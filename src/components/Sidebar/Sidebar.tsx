@@ -10,9 +10,10 @@ const Sidebar: React.FC<Props> = (props) => {
 
   return (
 
-    <div className="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark" style={{width: '280px'}}>
+    <div className="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark sticky-top" style={{width: '280px'}}>
+      <hr/>
       <span className="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
-        Sidebar
+        Categories
       </span>
       <hr/>
       <ul className="nav nav-pills flex-column mb-auto">

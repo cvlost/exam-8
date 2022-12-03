@@ -7,6 +7,7 @@ import CreateQuote from "./containers/CreateQuote/CreateQuote";
 import {CategoryData} from "./types";
 import axiosApi from "./axiosApi";
 import QuoteDisplay from "./components/QuoteDisplay/QuoteDisplay";
+import QuoteForm from "./components/QuoteForm/QuoteForm";
 
 function App() {
   const [isFetch, setIsFetch] = useState(false);
@@ -14,7 +15,6 @@ function App() {
   const initialRender = useRef(true);
 
   const fetchCategories = useCallback(async () => {
-    console.log('fetching')
     setIsFetch(true);
     const response = await axiosApi.get<CategoryData[]>('/quote-categories.json');
     if (response.data !== null) {
@@ -31,17 +31,23 @@ function App() {
   }, [fetchCategories]);
 
   return (
-    <div className="vh-100 d-flex flex-column">
-      <header>
+    <div className="vh-100 d-flex flex-column overflow-auto">
+      <header className="sticky-top">
         <Navbar/>
       </header>
-      <main className="flex-grow-1 d-flex">
+      <main className="flex-grow-1 d-flex overflow-auto">
         <Routes>
           <Route path="/" element={(
             <Main categories={categories}/>
           )}>
             <Route path="/:category" element={(
               <QuoteDisplay/>
+            )}/>
+            <Route path="/:id/edit" element={(
+              <div>
+                <h3>Edit</h3>
+                <QuoteForm categories={categories}/>
+              </div>
             )}/>
           </Route>
           <Route path="/add-quote" element={(
