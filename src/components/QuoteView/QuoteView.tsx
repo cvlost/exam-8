@@ -15,7 +15,7 @@ const QuoteView: React.FC<Props> = (props) => {
     await axiosApi.delete(`/quotes/${props.id}.json`);
     setIsFetch(false);
     props.refreshRequest();
-  }, [props.id]);
+  }, [props]);
 
   const removeQuote = () => {
     removeRequest().catch(console.error);

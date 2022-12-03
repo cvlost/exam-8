@@ -7,28 +7,26 @@ import Spinner from "../Spinner/Spinner";
 
 const QuoteDisplay = () => {
   const [isFetch, setIsFetch] = useState(false);
-  const [quotes, setQuotes] = useState<QuoteWithId[] | null>(null);
+  const [quotes, setQuotes] = useState<QuoteWithId[]>([]);
   const {category} = useParams();
   const [needReload, setNeedReload] = useState(false);
+  const title = category ?? 'All';
+  const address = category ? `/quotes.json?orderBy="category"&equalTo="${category}"` : '/quotes.json'
 
   const fetchData = useCallback(async () => {
     setIsFetch(true);
-    const response = await axiosApi.get<QuoteResponse>(`/quotes.json?orderBy="category"&equalTo="${category}"`);
-    if (response.data !== null) {
-
-      if (Object.keys(response.data).length !== 0) {
-        const modifiedQuotes: QuoteWithId[] = [];
-        for (let [key, value] of Object.entries(response.data)) {
-          modifiedQuotes.push({...value, id: key})
-        }
-        setQuotes(modifiedQuotes);
-      } else {
-        setQuotes(null);
+    const response = await axiosApi.get<QuoteResponse>(address);
+    if (response.data !== null && (Object.keys(response.data).length !== 0)) {
+      const modifiedQuotes: QuoteWithId[] = [];
+      for (let [key, value] of Object.entries(response.data)) {
+        modifiedQuotes.push({...value, id: key});
       }
-
+      setQuotes(modifiedQuotes);
+    } else {
+      setQuotes([]);
     }
     setIsFetch(false);
-  }, [category]);
+  }, [address]);
 
   useEffect(() => {
     fetchData().catch(console.error);
@@ -43,7 +41,7 @@ const QuoteDisplay = () => {
 
   let output = <Spinner/>
 
-  if (!isFetch && quotes !== null)
+  if (!isFetch && quotes.length > 0)
     output = (
       <div>
         {quotes.map((quote) => (
@@ -55,12 +53,12 @@ const QuoteDisplay = () => {
         ))}
       </div>
     );
-  else if (!isFetch && quotes === null)
+  else if (!isFetch && quotes.length === 0)
     output = <div className="alert alert-warning custom-mw text-center">There's <strong>nothing</strong> to show</div>;
 
   return (
     <div>
-      <h3 className="py-3 text-center text-capitalize">{category}</h3>
+      <h3 className="py-3 text-center text-capitalize">{title}</h3>
       {output}
     </div>
   );

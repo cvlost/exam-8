@@ -1,7 +1,7 @@
 import React, {useCallback, useEffect, useRef, useState} from 'react';
 import './App.css';
 import Navbar from "./components/Navbar/Navbar";
-import {Route, Routes, useRoutes} from "react-router-dom";
+import {Route, Routes} from "react-router-dom";
 import Main from "./containers/Main/Main";
 import CreateQuote from "./containers/CreateQuote/CreateQuote";
 import {CategoryData} from "./types";
@@ -41,6 +41,9 @@ function App() {
           <Route path="/" element={(
             <Main categories={categories}/>
           )}>
+            <Route path="/" element={(
+              <QuoteDisplay/>
+            )}/>
             <Route path="quotes/:category" element={(
               <QuoteDisplay/>
             )}/>
