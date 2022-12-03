@@ -5,12 +5,13 @@ import {Outlet} from "react-router-dom";
 
 interface Props {
   categories: CategoryData[];
+  isFetch: boolean;
 }
 
-const Main: React.FC<Props> = (props) => {
+const Main: React.FC<Props> = ({categories, isFetch}) => {
   return (
     <>
-      <Sidebar categories={props.categories}/>
+      <Sidebar showPreloader={isFetch} categories={categories}/>
       <div className="container-fluid">
         <Outlet/>
       </div>
