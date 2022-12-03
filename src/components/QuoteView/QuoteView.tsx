@@ -22,20 +22,21 @@ const QuoteView: React.FC<Props> = (props) => {
   };
 
   return (
-    <div className={`card shadow mb-3 ${isFetch?'bg-secondary':''}`}>
+    <div className={`card shadow mb-3 custom-mw ${isFetch?'bg-secondary':''}`}>
       <div className="card-header d-flex justify-content-between">
         <p>
-          {props.author}
+          <small>Author: </small>
+          <span className="fw-bold">{props.author}</span>
         </p>
-        <p>
-          {props.category}
+        <p className="m-0 text-bg-secondary align-self-center py-0 px-2 rounded-4">
+          <small>{props.category}</small>
         </p>
       </div>
       <div className="card-body">
         {props.text}
       </div>
-      <div className="card-footer text-center d-flex gap-2">
-        <Link to={`/${props.id}/edit`} className="btn btn-primary">Edit</Link>
+      <div className="card-footer justify-content-center d-flex gap-2">
+        <Link to={`/quotes/${props.id}/edit`} className="btn btn-primary">Edit</Link>
         <button className="btn btn-danger" onClick={removeQuote}>Delete</button>
       </div>
     </div>

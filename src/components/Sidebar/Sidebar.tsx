@@ -25,7 +25,7 @@ const Sidebar: React.FC<Props> = (props) => {
         {props.categories.map((category) => (
           <li key={category.id}>
             <NavLink
-              to={`${category.id}`}
+              to={`quotes/${category.id}`}
               className="nav-link text-white"
             >
               {category.title}

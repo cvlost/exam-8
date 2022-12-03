@@ -8,6 +8,7 @@ import {CategoryData} from "./types";
 import axiosApi from "./axiosApi";
 import QuoteDisplay from "./components/QuoteDisplay/QuoteDisplay";
 import QuoteForm from "./components/QuoteForm/QuoteForm";
+import NotFound from "./components/NotFound/NotFound";
 
 function App() {
   const [isFetch, setIsFetch] = useState(false);
@@ -40,12 +41,12 @@ function App() {
           <Route path="/" element={(
             <Main categories={categories}/>
           )}>
-            <Route path="/:category" element={(
+            <Route path="quotes/:category" element={(
               <QuoteDisplay/>
             )}/>
-            <Route path="/:id/edit" element={(
+            <Route path="quotes/:id/edit" element={(
               <div>
-                <h3>Edit</h3>
+                <h3 className="text-center py-3">Edit</h3>
                 <QuoteForm categories={categories}/>
               </div>
             )}/>
@@ -53,6 +54,7 @@ function App() {
           <Route path="/add-quote" element={(
             <CreateQuote categories={categories}/>
           )}/>
+          <Route path="*" element={<NotFound/>}/>
         </Routes>
       </main>
       <footer className="py-2 text-center text-secondary bg-dark">

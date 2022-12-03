@@ -48,7 +48,7 @@ const Main: React.FC<Props> = (props) => {
       <div className="container-fluid">
         {outlet || (isFetch ? <Spinner/> : null) || (
           <div>
-            <h3>All</h3>
+            <h3 className="py-3 text-center text-capitalize">All</h3>
             {quotes && quotes.map((quote) => (
               <QuoteView
                 key={quote.id}

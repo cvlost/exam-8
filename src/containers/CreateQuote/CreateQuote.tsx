@@ -9,7 +9,7 @@ interface Props {
 const CreateQuote: React.FC<Props> = (props) => {
   return (
     <div className="m-auto">
-      <h2>Create a new quote</h2>
+      <h2 className="text-center mb-3">Create a new quote</h2>
       <QuoteForm categories={props.categories}/>
     </div>
   );

@@ -6,7 +6,7 @@ const Navbar: React.FC = () => {
 
   return (
     <div className="navbar navbar-expand-sm navbar-dark bg-dark">
-      <div className="container">
+      <div className="container-fluid">
         <span
           className="navbar-brand code fw-bold"
           role="button"

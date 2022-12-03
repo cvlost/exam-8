@@ -14,12 +14,18 @@ const QuoteDisplay = () => {
   const fetchData = useCallback(async () => {
     setIsFetch(true);
     const response = await axiosApi.get<QuoteResponse>(`/quotes.json?orderBy="category"&equalTo="${category}"`);
-    if (response.data !== null && (Object.keys(response.data).length !== 0)) {
-      const modifiedQuotes: QuoteWithId[] = [];
-      for (let [key, value] of Object.entries(response.data)) {
-        modifiedQuotes.push({...value, id: key})
+    if (response.data !== null) {
+
+      if (Object.keys(response.data).length !== 0) {
+        const modifiedQuotes: QuoteWithId[] = [];
+        for (let [key, value] of Object.entries(response.data)) {
+          modifiedQuotes.push({...value, id: key})
+        }
+        setQuotes(modifiedQuotes);
+      } else {
+        setQuotes(null);
       }
-      setQuotes(modifiedQuotes);
+
     }
     setIsFetch(false);
   }, [category]);
@@ -37,21 +43,24 @@ const QuoteDisplay = () => {
 
   let output = <Spinner/>
 
-  if (!isFetch) output = (
-    <div>
-      {quotes && quotes.map((quote) => (
-        <QuoteView
-          key={quote.id}
-          {...quote}
-          refreshRequest={() => setNeedReload(true)}
-        />
-      ))}
-    </div>
-  );
+  if (!isFetch && quotes !== null)
+    output = (
+      <div>
+        {quotes.map((quote) => (
+          <QuoteView
+            key={quote.id}
+            {...quote}
+            refreshRequest={() => setNeedReload(true)}
+          />
+        ))}
+      </div>
+    );
+  else if (!isFetch && quotes === null)
+    output = <div className="alert alert-warning custom-mw text-center">There's <strong>nothing</strong> to show</div>;
 
   return (
     <div>
-      <h3>{category}</h3>
+      <h3 className="py-3 text-center text-capitalize">{category}</h3>
       {output}
     </div>
   );
