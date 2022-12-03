@@ -35,8 +35,8 @@ function App() {
             <Route path="/" element={<QuoteDisplay/>}/>
             <Route path="quotes/:category" element={<QuoteDisplay/>}/>
             <Route path="quotes/:id/edit" element={<QuoteEdit categories={categories}/>}/>
+            <Route path="add-quote" element={<CreateQuote categories={categories}/>}/>
           </Route>
-          <Route path="/add-quote" element={<CreateQuote categories={categories}/>}/>
           <Route path="*" element={<NotFound/>}/>
         </Routes>
       </main>

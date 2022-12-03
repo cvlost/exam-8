@@ -52,8 +52,12 @@ const QuoteForm: React.FC<Props> = (props) => {
     setIsFetch(true);
     await axiosApi.post('/quotes.json', quote);
     setIsFetch(false);
-    navigate(-1);
-  }, [navigate, quote]);
+    setQuote({
+      text: '',
+      author: '',
+      category: '',
+    })
+  }, [quote]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const {name, value} = e.target;
